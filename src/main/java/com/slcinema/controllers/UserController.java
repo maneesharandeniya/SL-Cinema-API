@@ -28,13 +28,13 @@ public class UserController {
         return regConfirm;
     }
 
-    @PostMapping(value = "/cinema/rate")
+    @GetMapping(value = "/cinema/rate")
     public String setRating(@RequestParam("id") String id, @RequestParam("rate")double rate){
         String rateConfirm = userService.rateMovieItem(id,rate);
         return  rateConfirm;
     }
 
-    @PostMapping(value = "/cinema/wish-list/add")
+    @GetMapping(value = "/cinema/wish-list/add")
     public AtomicReference<String> addToWishList(@RequestParam(name = "id") String id){
         AtomicReference<String> addWLConfirm = userService.addMovieItemToWishList(id);
         return addWLConfirm;
@@ -46,7 +46,7 @@ public class UserController {
         return wishList;
     }
 
-    @PostMapping(value = "/cinema/review")
+    @GetMapping(value = "/cinema/review")
     public String setReview(@RequestParam("id") String id, @RequestParam("review") String review){
         String reviewConfirm = userService.reviewMovieItem(id,review);
         return  reviewConfirm;

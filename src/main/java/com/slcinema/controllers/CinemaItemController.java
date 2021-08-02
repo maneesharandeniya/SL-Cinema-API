@@ -16,13 +16,13 @@ public class CinemaItemController {
     CinemaItemRepo cinemaItemRepo;
 
 
-    @GetMapping("/{title}")
+    @GetMapping("find/{title}")
     public CinemaItem getCinemaItemByTitle(@PathVariable("title") String title){
         CinemaItem cinemaItem = cinemaItemRepo.findByTitle(title);
         return cinemaItem;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("find/{id}")
     public Optional<CinemaItem> getCinemaIteById(@PathVariable("id") String id){
         Optional<CinemaItem> cinemaItem = cinemaItemRepo.findById(id);
         return cinemaItem;

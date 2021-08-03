@@ -22,7 +22,7 @@ public class CinemaItemController {
         return cinemaItem;
     }
 
-    @GetMapping("find/{id}")
+    @GetMapping(value = "find/{id}")
     public Optional<CinemaItem> getCinemaIteById(@PathVariable("id") String id){
         Optional<CinemaItem> cinemaItem = cinemaItemRepo.findById(id);
         return cinemaItem;

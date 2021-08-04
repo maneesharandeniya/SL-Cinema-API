@@ -172,7 +172,7 @@ public class UserService {
                 reviewedItems.remove(item.getId());
             }
             reviewedItems.add(item.getId());
-            user.setRatedList(reviewedItems);
+            user.setReviewedList(reviewedItems);
 
             HashMap<String,String> reviews = item.getReviews();
             if(reviews == null){

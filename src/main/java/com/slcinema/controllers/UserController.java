@@ -1,6 +1,7 @@
 package com.slcinema.controllers;
 
 import com.slcinema.models.CinemaItem;
+import com.slcinema.models.ReviewObj;
 import com.slcinema.models.User;
 import com.slcinema.repo.UserRepo;
 import com.slcinema.services.UserService;
@@ -46,12 +47,10 @@ public class UserController {
         return wishList;
     }
 
-    @GetMapping(value = "/cinema/review")
-    public String setReview(@RequestParam("id") String id, @RequestParam("review") String review){
-        String reviewConfirm = userService.reviewMovieItem(id,review);
+    @PostMapping(value = "/cinema/review", consumes = {"application/json"})
+    public String setReview(@RequestBody ReviewObj reviewObj){
+        String reviewConfirm = userService.reviewMovieItem(reviewObj.getId(),reviewObj.getReview());
         return  reviewConfirm;
     }
-
-
 
 }

@@ -5,9 +5,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 
-@Document("Producer")
-public class Producer {
+@Document("Star")
+public class CinemaStar {
     @Id
     private String name;
 
@@ -17,9 +18,9 @@ public class Producer {
 
     @NotNull(message = "image url cannot be Null")
     @NotBlank(message = "image url cannot be Blank")
-    private String imageUrl;
+    private ArrayList<String> imageUrl;
 
-    public Producer(String name, String description, String imageUrl) {
+    public CinemaStar(String name, String description, ArrayList<String> imageUrl) {
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
@@ -41,11 +42,11 @@ public class Producer {
         this.description = description;
     }
 
-    public String getImageUrl() {
+    public ArrayList<String> getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
+    public void setImageUrl(ArrayList<String> imageUrl) {
         this.imageUrl = imageUrl;
     }
 }

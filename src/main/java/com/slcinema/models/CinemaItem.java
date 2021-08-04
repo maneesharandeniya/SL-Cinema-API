@@ -23,7 +23,7 @@ public class CinemaItem {
 
     @NotNull(message = "image url cannot be Null")
     @NotBlank(message = "image url cannot be Blank")
-    private String imageUrl;
+    private ArrayList<String> imageUrls;
 
     @NotNull(message = "description cannot be Null")
     @NotBlank(message = "description cannot be Blank")
@@ -35,11 +35,11 @@ public class CinemaItem {
 
     @NotNull(message = "director cannot be Null")
     @NotBlank(message = "director cannot be Blank")
-    private ArrayList<String> directors;
+    private ArrayList<Role> directors;
 
     @NotNull(message = "producer cannot be Null")
     @NotBlank(message = "producer cannot be Blank")
-    private ArrayList<String> producers;
+    private ArrayList<Role> producers;
 
     @NotNull(message = "genre cannot be Null")
     @NotBlank(message = "genre cannot be Blank")
@@ -51,11 +51,11 @@ public class CinemaItem {
     private int ratedCount;
     private String youtubeURL;
 
-    public CinemaItem(String id, String category, String title, String imageUrl, String description, ArrayList<Role> cast, ArrayList<String> directors, ArrayList<String> producers, ArrayList<String> genres, HashMap<String, String> reviews, HashMap<String, Double> rateMap, double ratings, int ratedCount, String youtubeURL) {
+    public CinemaItem(String id, String category, String title, ArrayList<String> imageUrls, String description, ArrayList<Role> cast, ArrayList<Role> directors, ArrayList<Role> producers, ArrayList<String> genres, HashMap<String, String> reviews, HashMap<String, Double> rateMap, double ratings, int ratedCount, String youtubeURL) {
         this.id = id;
         this.category = category;
         this.title = title;
-        this.imageUrl = imageUrl;
+        this.imageUrls = imageUrls;
         this.description = description;
         this.cast = cast;
         this.directors = directors;
@@ -92,12 +92,12 @@ public class CinemaItem {
         this.title = title;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public ArrayList<String> getImageUrls() {
+        return imageUrls;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageUrls(ArrayList<String> imageUrls) {
+        this.imageUrls = imageUrls;
     }
 
     public String getDescription() {
@@ -116,19 +116,19 @@ public class CinemaItem {
         this.cast = cast;
     }
 
-    public ArrayList<String> getDirectors() {
+    public ArrayList<Role> getDirectors() {
         return directors;
     }
 
-    public void setDirectors(ArrayList<String> directors) {
+    public void setDirectors(ArrayList<Role> directors) {
         this.directors = directors;
     }
 
-    public ArrayList<String> getProducers() {
+    public ArrayList<Role> getProducers() {
         return producers;
     }
 
-    public void setProducers(ArrayList<String> producers) {
+    public void setProducers(ArrayList<Role> producers) {
         this.producers = producers;
     }
 

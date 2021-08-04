@@ -2,13 +2,11 @@ package com.slcinema.models;
 
 public class Role {
     private String role;
-    private String star;
-    private String imageUrl;
+    private String starID;
 
-    public Role(String role, String star, String imageUrl) {
+    public Role(String role, String starID) {
         this.role = role;
-        this.star = star;
-        this.imageUrl = imageUrl;
+        this.starID = starID;
     }
 
     public String getRole() {
@@ -19,19 +17,11 @@ public class Role {
         this.role = role;
     }
 
-    public String getStar() {
-        return star;
+    public String getStarID() {
+        return starID;
     }
 
-    public void setStar(String star) {
-        this.star = star;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setStarID(String starID) {
+        this.starID = starID;
     }
 }

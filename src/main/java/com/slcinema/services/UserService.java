@@ -168,6 +168,9 @@ public class UserService {
             if(reviewedItems == null){
                 reviewedItems = new ArrayList<String>();
             }
+            if(reviewedItems.contains(item.getId())){
+                reviewedItems.remove(item.getId());
+            }
             reviewedItems.add(item.getId());
             user.setRatedList(reviewedItems);
 

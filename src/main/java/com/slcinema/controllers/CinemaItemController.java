@@ -19,7 +19,7 @@ public class CinemaItemController {
     @Autowired
     private CinemaItemService cinemaItemService;
 
-    @GetMapping(value = "find/{title}" ,produces = {"application/json"})
+    @GetMapping(value = "find/title/{title}" ,produces = {"application/json"})
     public Optional<CinemaItem> getCinemaItemByTitle(@PathVariable("title") String title){
         Optional<CinemaItem> cinemaItem = Optional.ofNullable(cinemaItemRepo.findByTitle(title));
         return cinemaItem;

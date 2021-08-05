@@ -2,6 +2,7 @@ package com.slcinema.controllers;
 
 import com.slcinema.models.CinemaItem;
 import com.slcinema.repo.CinemaItemRepo;
+import com.slcinema.services.CinemaItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +16,10 @@ public class CinemaItemController {
     @Autowired
     CinemaItemRepo cinemaItemRepo;
 
+    @Autowired
+    private CinemaItemService cinemaItemService;
 
-    @GetMapping("find/{title}")
+    @GetMapping(value = "find/{title}" ,produces = {"application/json"})
     public CinemaItem getCinemaItemByTitle(@PathVariable("title") String title){
         CinemaItem cinemaItem = cinemaItemRepo.findByTitle(title);
         return cinemaItem;

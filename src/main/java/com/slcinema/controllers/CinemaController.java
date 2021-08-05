@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/cinema")
-public class CinemaItemController {
+public class CinemaController {
 
     @Autowired
     CinemaItemRepo cinemaItemRepo;

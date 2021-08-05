@@ -3,6 +3,7 @@ package com.slcinema.models;
 public class Role {
     private String role;
     private String starID;
+    private String imageUrl;
 
     public Role(String role, String starID) {
         this.role = role;
@@ -23,5 +24,13 @@ public class Role {
 
     public void setStarID(String starID) {
         this.starID = starID;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

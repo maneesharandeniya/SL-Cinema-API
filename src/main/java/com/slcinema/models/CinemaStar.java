@@ -18,12 +18,12 @@ public class CinemaStar {
 
     @NotNull(message = "image url cannot be Null")
     @NotBlank(message = "image url cannot be Blank")
-    private ArrayList<String> imageUrl;
+    private ArrayList<String> imageUrls;
 
-    public CinemaStar(String name, String description, ArrayList<String> imageUrl) {
+    public CinemaStar(String name, String description, ArrayList<String> imageUrls) {
         this.name = name;
         this.description = description;
-        this.imageUrl = imageUrl;
+        this.imageUrls = imageUrls;
     }
 
     public String getName() {
@@ -42,11 +42,11 @@ public class CinemaStar {
         this.description = description;
     }
 
-    public ArrayList<String> getImageUrl() {
-        return imageUrl;
+    public ArrayList<String> getImageUrls() {
+        return imageUrls;
     }
 
-    public void setImageUrl(ArrayList<String> imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageUrls(ArrayList<String> imageUrls) {
+        this.imageUrls = imageUrls;
     }
 }

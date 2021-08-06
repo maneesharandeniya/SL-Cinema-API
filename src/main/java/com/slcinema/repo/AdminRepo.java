@@ -10,5 +10,4 @@ import java.util.Optional;
 public interface AdminRepo extends MongoRepository<Admin,String> {
     public Admin findByUsername(String username);
 
-    void delete(Optional<Admin> editor);
 }

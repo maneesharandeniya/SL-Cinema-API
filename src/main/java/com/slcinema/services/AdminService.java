@@ -77,7 +77,7 @@ public class AdminService {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Cinema Item Not Found");
         }
-        cinemaItemRepo.delete(cinemaItem);
+        cinemaItemRepo.deleteById(id);
         return "Successfully deleted item";
     }
 
@@ -125,7 +125,7 @@ public class AdminService {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Cinema Star Not Found");
         }
-        cinemaStarRepo.delete(star);
+        cinemaStarRepo.deleteById(id);
         return "Successfully edited star";
     }
 
@@ -153,7 +153,7 @@ public class AdminService {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Editor Not Found");
         }
-        adminRepo.delete(editor);
+        adminRepo.deleteById(id);
         return "Successfully deleted editor";
     }
 }

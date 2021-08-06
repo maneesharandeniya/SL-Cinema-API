@@ -61,10 +61,10 @@ public class AdminController {
         String addConfirm = adminService.addNewEditor(editor);
         return addConfirm;
     }
-
+    /*
     @DeleteMapping(value = "/delete/editor/{id}" )
     public String addNewEditor(@PathVariable("id") String id){
         String deleteConfirm = adminService.deleteEditor(id);
         return deleteConfirm;
-    }
+    }*/
 }

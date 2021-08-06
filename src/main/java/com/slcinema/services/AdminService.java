@@ -140,4 +140,20 @@ public class AdminService {
         adminRepo.save(editor);
         return "successfully added editor";
     }
+
+    public String deleteEditor(String id) {
+        String adminName = JwtAuthenticationController.getUserFromSession();
+        Optional<Admin> editor = adminRepo.findById(id);
+
+        if(adminName == null){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Admin User Not Found");
+        }
+        if(!editor.isPresent()){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Editor Not Found");
+        }
+        adminRepo.delete(editor);
+        return "Successfully deleted editor";
+    }
 }

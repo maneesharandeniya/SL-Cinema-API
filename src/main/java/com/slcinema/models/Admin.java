@@ -10,6 +10,9 @@ import javax.validation.constraints.NotNull;
 public class Admin {
 
     @Id
+    private String adminID;
+
+    @Id
     private String username;
 
     //@NotNull(message = "password is mandatory")
@@ -28,20 +31,36 @@ public class Admin {
         this.role = role;
     }
 
-    public String getUsername() {
-        return username;
+    public String getAdminID() {
+        return adminID;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getUsername() {
+        return username;
     }
 
     public String getPassword() {
         return password;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setAdminID(String adminID) {
+        this.adminID = adminID;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getEmail() {
@@ -50,13 +69,5 @@ public class Admin {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 }

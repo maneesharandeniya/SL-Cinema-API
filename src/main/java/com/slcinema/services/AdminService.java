@@ -126,7 +126,7 @@ public class AdminService {
                     HttpStatus.NOT_FOUND, "Cinema Star Not Found");
         }
         cinemaStarRepo.deleteById(id);
-        return "Successfully edited star";
+        return "Successfully deleted star";
     }
 
     public String addNewEditor(Admin editor) {

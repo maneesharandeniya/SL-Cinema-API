@@ -1,7 +1,9 @@
 package com.slcinema.controllers;
 
 import com.slcinema.models.CinemaItem;
+import com.slcinema.models.CinemaStar;
 import com.slcinema.repo.CinemaItemRepo;
+import com.slcinema.repo.CinemaStarRepo;
 import com.slcinema.services.CinemaItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,9 @@ public class CinemaController {
     CinemaItemRepo cinemaItemRepo;
 
     @Autowired
+    private CinemaStarRepo cinemaStarRepo;
+
+    @Autowired
     private CinemaItemService cinemaItemService;
 
     @GetMapping(value = "find/title/{title}" ,produces = {"application/json"})
@@ -29,6 +34,12 @@ public class CinemaController {
     public Optional<CinemaItem> getCinemaIteById(@PathVariable("id") String id){
         Optional<CinemaItem> cinemaItem = cinemaItemRepo.findById(id);
         return cinemaItem;
+    }
+
+    @GetMapping(value = "star/{id}")
+    public Optional<CinemaStar> getCinemaStar(@PathVariable("id") String id){
+        Optional<CinemaStar> cinemaStar = cinemaStarRepo.findById(id);
+        return cinemaStar;
     }
 
     @GetMapping("/movies/all")

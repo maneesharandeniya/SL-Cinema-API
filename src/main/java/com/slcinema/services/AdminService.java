@@ -143,7 +143,7 @@ public class AdminService {
 
     public String deleteEditor(String id) {
         String adminName = JwtAuthenticationController.getUserFromSession();
-        Optional<Admin> editor = adminRepo.findById(id);
+        Optional<Admin> editor = Optional.ofNullable(adminRepo.findByUsername(id));
 
         if(adminName == null){
             throw new ResponseStatusException(

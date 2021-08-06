@@ -153,7 +153,7 @@ public class AdminService {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Editor Not Found");
         }
-        adminRepo.deleteById(id);
+        adminRepo.deleteByUsername(id);
         return "Successfully deleted editor";
     }
 }

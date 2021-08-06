@@ -12,7 +12,6 @@ public class Admin {
     @Id
     private String adminID;
 
-    @Id
     private String username;
 
     //@NotNull(message = "password is mandatory")
@@ -24,7 +23,8 @@ public class Admin {
 
     private String role;
 
-    public Admin(String username, String password, String email, String role) {
+    public Admin(String adminID, String username, String password, String email, String role) {
+        this.adminID = adminID;
         this.username = username;
         this.password = password;
         this.email = email;

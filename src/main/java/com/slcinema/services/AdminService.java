@@ -46,7 +46,7 @@ public class AdminService {
 
     public String addNewStar(CinemaStar cinemaStar) {
         String adminName = JwtAuthenticationController.getUserFromSession();
-        Optional<CinemaItem> star = cinemaItemRepo.findById(cinemaStar.getName());
+        Optional<CinemaStar> star = cinemaStarRepo.findById(cinemaStar.getName());
 
         if(adminName == null){
             throw new ResponseStatusException(

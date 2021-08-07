@@ -41,7 +41,7 @@ public class JwtAuthenticationController {
             );
         } catch (BadCredentialsException e) {
             return new ResponseEntity<>(
-                    "{  : Incorrect userName or Password.",
+                    "Incorrect userName or Password.",
                     HttpStatus.BAD_REQUEST
             );
         }

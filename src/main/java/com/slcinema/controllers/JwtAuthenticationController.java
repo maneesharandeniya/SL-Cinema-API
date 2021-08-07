@@ -31,7 +31,7 @@ public class JwtAuthenticationController {
     @Autowired
     private CustomUserDetailService customUserDetailsService;
 
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/login" ,produces = {"application/json"})
     public ResponseEntity<?> createAuthenticationToken(
             @RequestBody AuthenticationRequest authRequest) throws Exception{
 
@@ -41,7 +41,7 @@ public class JwtAuthenticationController {
             );
         } catch (BadCredentialsException e) {
             return new ResponseEntity<>(
-                    "Incorrect userName or Password.",
+                    "{  : Incorrect userName or Password.",
                     HttpStatus.BAD_REQUEST
             );
         }

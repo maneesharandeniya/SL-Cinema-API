@@ -8,29 +8,29 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class UserDetailsPrinciple implements UserDetails {
+public class AdminDetailsPrincipal implements UserDetails {
 
-    private User user;
+    private Admin admin;
 
-    public UserDetailsPrinciple(User user) {
-        this.user = user;
+    public AdminDetailsPrincipal(Admin admin) {
+        this.admin = admin;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> auth = new ArrayList<>();
-        auth.add(new SimpleGrantedAuthority("ROLE_USER"));
+        auth.add(new SimpleGrantedAuthority("ROLE_"+admin.getRole()));
         return auth;
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return admin.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return admin.getEmail();
     }
 
     @Override

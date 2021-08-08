@@ -130,7 +130,7 @@ public class AdminService {
     }
 
     public String addNewEditor(Admin editor) {
-        Admin newEditor = adminRepo.findByUsername(editor.getUsername());
+        Admin newEditor = adminRepo.findByEmail(editor.getEmail());
 
         if(newEditor != null){
             throw new ResponseStatusException(
@@ -143,7 +143,7 @@ public class AdminService {
 
     public String deleteEditor(String id) {
         String adminName = JwtAuthenticationController.getUserFromSession();
-        Optional<Admin> editor = Optional.ofNullable(adminRepo.findByUsername(id));
+        Optional<Admin> editor = Optional.ofNullable(adminRepo.findByEmail(id));
 
         if(adminName == null){
             throw new ResponseStatusException(

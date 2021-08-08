@@ -7,5 +7,5 @@ import com.slcinema.models.User;
 @Repository
 public interface UserRepo extends MongoRepository<User, String> {
 
-    public User findByUsername(String username);
+    public User findByEmail(String email);
 }

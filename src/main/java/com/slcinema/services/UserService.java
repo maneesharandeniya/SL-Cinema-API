@@ -30,9 +30,9 @@ public class UserService {
     private BCryptPasswordEncoder passwordEncoder;
 
     public String addNewUser(User user){
-        User newUser = userRepo.findByUsername(user.getUsername());
+        User newUser = userRepo.findByEmail(user.getEmail());
         if(newUser != null){
-            return "username already exist";
+            return "UserEmail already exist";
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
@@ -44,7 +44,7 @@ public class UserService {
 
         Optional<CinemaItem> cinemaItem = cinemaItemRepo.findById(id);
         String username = JwtAuthenticationController.getUserFromSession();
-
+        System.out.println(username);
         if(username == null){
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "User Not Found");
@@ -55,7 +55,7 @@ public class UserService {
         }
 
         cinemaItem.ifPresent(item -> {
-            User user = userRepo.findByUsername(username);
+            User user = userRepo.findByEmail(username);
             ArrayList<String> ratedList = user.getRatedList();
 
             HashMap<String,Double> rateMap = item.getRateMap();
@@ -106,7 +106,7 @@ public class UserService {
                     HttpStatus.NOT_FOUND, "Cinema Item Not Found");
         }
         cinemaItem.ifPresent(item -> {
-            User user = userRepo.findByUsername(username);
+            User user = userRepo.findByEmail(username);
             ArrayList<String> wishList = user.getWishlist();
             if(wishList == null){
                 wishList = new ArrayList<String>();
@@ -133,7 +133,7 @@ public class UserService {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "User Not Found");
         }
-        User user = userRepo.findByUsername(username);
+        User user = userRepo.findByEmail(username);
 
         ArrayList<String> itemIDs = user.getWishlist();
         if(itemIDs != null){
@@ -163,7 +163,7 @@ public class UserService {
         }
 
         cinemaItem.ifPresent(item -> {
-            User user = userRepo.findByUsername(username);
+            User user = userRepo.findByEmail(username);
             ArrayList<String> reviewedItems = user.getReviewedList();
             if(reviewedItems == null){
                 reviewedItems = new ArrayList<String>();

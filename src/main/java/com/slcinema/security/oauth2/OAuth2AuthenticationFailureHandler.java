@@ -1,4 +1,4 @@
-package com.slcinema.security.oauth2.user;
+package com.slcinema.security.oauth2;
 
 
 import com.slcinema.security.oauth2.CookieUtils;

@@ -3,10 +3,9 @@ package com.slcinema.security;
 
 import com.slcinema.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.slcinema.security.oauth2.OAuth2AuthenticationSuccessHandler;
-import com.slcinema.security.oauth2.user.OAuth2AuthenticationFailureHandler;
+import com.slcinema.security.oauth2.OAuth2AuthenticationFailureHandler;
 import com.slcinema.services.CustomOAuth2UserService;
 import com.slcinema.services.CustomUserDetailService;
-import com.slcinema.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -3,6 +3,7 @@ package com.slcinema.security;
 
 import com.slcinema.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.slcinema.security.oauth2.OAuth2AuthenticationSuccessHandler;
+import com.slcinema.security.oauth2.user.OAuth2AuthenticationFailureHandler;
 import com.slcinema.services.CustomOAuth2UserService;
 import com.slcinema.services.CustomUserDetailService;
 import com.slcinema.services.UserService;
@@ -45,6 +46,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
+	@Autowired
+	private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
 
 	@Bean
 	public HttpCookieOAuth2AuthorizationRequestRepository cookieAuthorizationRequestRepository() {
@@ -84,8 +87,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 					.userInfoEndpoint()
 						.userService(customOAuth2UserService)
 						.and()
-					.successHandler(oAuth2AuthenticationSuccessHandler)	;
-
+					.successHandler(oAuth2AuthenticationSuccessHandler)
+					.failureHandler(oAuth2AuthenticationFailureHandler);
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 	

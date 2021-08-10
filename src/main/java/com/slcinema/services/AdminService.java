@@ -1,9 +1,11 @@
 package com.slcinema.services;
 
 import com.slcinema.controllers.JwtAuthenticationController;
+import com.slcinema.exception.BadRequestException;
 import com.slcinema.models.Admin;
 import com.slcinema.models.CinemaItem;
 import com.slcinema.models.CinemaStar;
+import com.slcinema.models.Role;
 import com.slcinema.repo.AdminRepo;
 import com.slcinema.repo.CinemaItemRepo;
 import com.slcinema.repo.CinemaStarRepo;
@@ -13,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -36,14 +39,28 @@ public class AdminService {
 
         //TODO
         // get starID from cinema item and then set role imageUrl
+        if(cinemaItem.getCast() != null) {
+            ArrayList<Role> roles = cinemaItem.getCast();
+            for(int i=0; i< roles.size(); i++){
+                Optional<CinemaStar> star = cinemaStarRepo.findById(roles.get(i).getStarID());
+                if(star == null){
+                    throw new ResponseStatusException(
+                            HttpStatus.NOT_FOUND, "Cinema star Not Found");
+                }
+
+                int finalI = i;
+                star.ifPresent(s -> {
+                    roles.get(finalI).setImageUrl(s.getImageUrls().get(0));
+                });
+            }
+        }
 
         if(adminName == null){
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Admin User Not Found");
         }
         if(item != null){
-            throw new ResponseStatusException(
-                    HttpStatus.FOUND, "Cinema Item Found");
+            throw new BadRequestException("Email address already in use.");
         }
         cinemaItemRepo.save(cinemaItem);
         return "Successfully added item";
@@ -90,8 +107,7 @@ public class AdminService {
                     HttpStatus.NOT_FOUND, "Admin User Not Found");
         }
         if(star.isPresent()){
-            throw new ResponseStatusException(
-                    HttpStatus.FOUND, "Cinema Star Found");
+            throw new BadRequestException("Email address already in use.");
         }
         cinemaStarRepo.save(cinemaStar);
         return "Successfully added star";
@@ -133,8 +149,7 @@ public class AdminService {
         Admin newEditor = adminRepo.findByEmail(editor.getEmail());
 
         if(newEditor != null){
-            throw new ResponseStatusException(
-                    HttpStatus.FOUND, "Editor already exist");
+            throw new BadRequestException("Email address already in use.");
         }
         editor.setPassword(passwordEncoder.encode(editor.getPassword()));
         adminRepo.save(editor);

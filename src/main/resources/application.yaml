@@ -23,7 +23,7 @@ spring:
             clientSecret: d38213cbb58c31df0f13c06080503e0cd7abea59
             redirectUri: "https://sl-cinema.herokuapp.com/oauth2/callback/github"
             scope:
-              - email
+              - user:email
               - read:user
         provider:
           facebook:

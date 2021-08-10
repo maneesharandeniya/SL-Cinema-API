@@ -12,8 +12,8 @@ spring:
               - email
               - profile
           facebook:
-            clientId: 199327328743865
-            clientSecret: 880639fe91450005eeb3e2984cb0696a
+            clientId: 239665824674642
+            clientSecret: 5188a6598c284307183548f71a7780bc
             redirectUri: "https://sl-cinema.herokuapp.com/oauth2/callback/facebook" # Note that facebook now mandates the use of https redirect URIs, so make sure your app supports https in production
             scope:
               - email

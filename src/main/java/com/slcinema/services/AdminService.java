@@ -47,7 +47,6 @@ public class AdminService {
                     throw new ResponseStatusException(
                             HttpStatus.NOT_FOUND, "Cinema star Not Found");
                 }
-
                 int finalI = i;
                 star.ifPresent(s -> {
                     roles.get(finalI).setImageUrl(s.getImageUrls().get(0));

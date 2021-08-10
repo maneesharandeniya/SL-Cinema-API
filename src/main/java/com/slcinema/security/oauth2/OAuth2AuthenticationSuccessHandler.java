@@ -39,23 +39,14 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         String targetUrl = CookieUtils.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
                 .map(Cookie::getValue)
-                .orElse(("/user"));
-
-       // System.out.println(redirectUri);
-
-       // String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
-        System.out.println(targetUrl);
-
+                .orElse(("/"));
         String token = tokenProvider.generateToken((UserDetails) authentication.getPrincipal());
-        System.out.println(UriComponentsBuilder.fromUriString(getDefaultTargetUrl())
-                .queryParam("token", token)
-                .build().toUriString());
 
-        targetUrl = UriComponentsBuilder.fromUriString(getDefaultTargetUrl())
-                .queryParam("token", token)
+        targetUrl = UriComponentsBuilder.fromUriString(targetUrl)
+                .queryParam("error", token)
                 .build().toUriString();
 
-        clearAuthenticationAttributes(request, response);
+        httpCookieOAuth2AuthorizationRequestRepository.removeAuthorizationRequestCookies(request, response);
 
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }

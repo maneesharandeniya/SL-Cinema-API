@@ -1,6 +1,7 @@
 package com.slcinema.services;
 
 import com.slcinema.controllers.JwtAuthenticationController;
+import com.slcinema.exception.BadRequestException;
 import com.slcinema.models.CinemaItem;
 import com.slcinema.models.User;
 import com.slcinema.repo.CinemaItemRepo;
@@ -32,7 +33,7 @@ public class UserService {
     public String addNewUser(User user){
         User newUser = userRepo.findByEmail(user.getEmail());
         if(newUser != null){
-            return "UserEmail already exist";
+            throw new BadRequestException("Email address already in use.");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);

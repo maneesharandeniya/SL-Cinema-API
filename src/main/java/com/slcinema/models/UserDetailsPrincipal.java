@@ -3,17 +3,25 @@ package com.slcinema.models;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
-public class UserDetailsPrincipal implements UserDetails {
+public class UserDetailsPrincipal implements UserDetails, OAuth2User {
 
     private User user;
 
     public UserDetailsPrincipal(User user) {
         this.user = user;
+    }
+
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return null;
     }
 
     @Override
@@ -51,5 +59,10 @@ public class UserDetailsPrincipal implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String getName() {
+        return null;
     }
 }

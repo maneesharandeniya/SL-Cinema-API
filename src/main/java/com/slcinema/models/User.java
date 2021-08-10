@@ -27,14 +27,14 @@ public class User {
 
     private ArrayList<String> reviewedList = new ArrayList<>();
 
-    public User(String id, String username, String email, String password, ArrayList<String> wishlist, ArrayList<String> ratedList, ArrayList<String> reviewedList) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.wishlist = wishlist;
-        this.ratedList = ratedList;
-        this.reviewedList = reviewedList;
+    private AuthProvider provider;
+
+    public AuthProvider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(AuthProvider provider) {
+        this.provider = provider;
     }
 
     public String getId() {

@@ -1,0 +1,32 @@
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 922118688631-ikbgloo6rs1amgfsbe8fm6dbojleo7h7.apps.googleusercontent.com
+            clientSecret: kD0X4aQQNokJrUPjmqlq_kxY
+            redirectUri: "http://localhost:8080/oauth2/callback/google"
+            scope:
+              - email
+              - profile
+          facebook:
+            clientId: 199327328743865
+            clientSecret: 880639fe91450005eeb3e2984cb0696a
+            redirectUri: "http://localhost:8080/oauth2/callback/facebook" # Note that facebook now mandates the use of https redirect URIs, so make sure your app supports https in production
+            scope:
+              - email
+              - public_profile
+          github:
+            clientId: 195a601a48568bda5cf5
+            clientSecret: d38213cbb58c31df0f13c06080503e0cd7abea59
+            redirectUri: "http://localhost:8080/oauth2/callback/github"
+            scope:
+              - email
+              - read:user
+        provider:
+          facebook:
+            authorizationUri: https://www.facebook.com/v3.0/dialog/oauth
+            tokenUri: https://graph.facebook.com/v3.0/oauth/access_token
+            userInfoUri: https://graph.facebook.com/v3.0/me?fields=id,first_name,middle_name,last_name,name,email,verified,is_verified,picture.width(250).height(250)

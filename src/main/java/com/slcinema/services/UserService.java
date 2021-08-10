@@ -21,10 +21,10 @@ import java.util.concurrent.atomic.AtomicReference;
 public class UserService {
 
     @Autowired
-    UserRepo userRepo;
+    private UserRepo userRepo;
 
     @Autowired
-    CinemaItemRepo cinemaItemRepo;
+    private CinemaItemRepo cinemaItemRepo;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;

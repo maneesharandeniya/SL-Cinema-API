@@ -1,5 +1,6 @@
 package com.slcinema.security;
 
+import com.slcinema.models.UserPrincipal;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

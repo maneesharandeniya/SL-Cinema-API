@@ -1,10 +1,7 @@
 package com.slcinema.services;
 
-import com.slcinema.models.Admin;
-import com.slcinema.models.AdminDetailsPrincipal;
+import com.slcinema.models.*;
 import com.slcinema.repo.AdminRepo;
-import com.slcinema.models.User;
-import com.slcinema.models.UserDetailsPrincipal;
 import com.slcinema.repo.UserRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +28,7 @@ public class CustomUserDetailService implements UserDetailsService{
 		if(admin != null) {
             return new AdminDetailsPrincipal(admin);
 		}else if(user != null) {
-            return new UserDetailsPrincipal(user);
+            return UserPrincipal.create(user);
 		}
 		throw new UsernameNotFoundException("User not found with email: " + email);
 	}

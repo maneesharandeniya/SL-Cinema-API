@@ -39,7 +39,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         String targetUrl = CookieUtils.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
                 .map(Cookie::getValue)
-                .orElse(("http://localhost"));
+                .orElse(("http://localhost/"));
 
         String token = tokenProvider.generateToken((UserDetails) authentication.getPrincipal());
 

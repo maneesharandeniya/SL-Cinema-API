@@ -2,7 +2,7 @@ package com.slcinema.controllers;
 
 import com.slcinema.models.AuthenticationRequest;
 import com.slcinema.models.AuthenticationResponse;
-import com.slcinema.security.JwtTokenUtil;
+import com.slcinema.util.JwtTokenUtil;
 import com.slcinema.services.CustomUserDetailService;
 
 import org.springframework.beans.factory.annotation.Autowired;

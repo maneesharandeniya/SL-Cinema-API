@@ -1,7 +1,6 @@
 package com.slcinema.security;
 
 
-import com.slcinema.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.slcinema.security.oauth2.OAuth2AuthenticationSuccessHandler;
 import com.slcinema.security.oauth2.OAuth2AuthenticationFailureHandler;
 import com.slcinema.services.CustomOAuth2UserService;

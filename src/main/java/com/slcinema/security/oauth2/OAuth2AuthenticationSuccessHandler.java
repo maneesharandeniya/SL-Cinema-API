@@ -1,7 +1,8 @@
 package com.slcinema.security.oauth2;
 
-import com.slcinema.exception.BadRequestException;
-import com.slcinema.security.JwtTokenUtil;
+import com.slcinema.util.CookieUtils;
+import com.slcinema.security.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.slcinema.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,9 +16,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Optional;
 
-import static com.slcinema.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
+import static com.slcinema.security.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
 
 @Component
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {

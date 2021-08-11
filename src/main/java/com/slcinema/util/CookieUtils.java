@@ -1,4 +1,4 @@
-package com.slcinema.security.oauth2;
+package com.slcinema.util;
 
 
 import org.springframework.util.SerializationUtils;

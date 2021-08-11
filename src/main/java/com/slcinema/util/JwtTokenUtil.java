@@ -1,4 +1,4 @@
-package com.slcinema.security;
+package com.slcinema.util;
 
 import com.slcinema.models.UserPrincipal;
 import io.jsonwebtoken.Claims;

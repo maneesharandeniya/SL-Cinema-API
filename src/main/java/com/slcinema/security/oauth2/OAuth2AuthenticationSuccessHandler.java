@@ -36,7 +36,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         String token = tokenProvider.generateToken((UserDetails) authentication.getPrincipal());
 
-        targetUrl = UriComponentsBuilder.fromUriString(targetUrl)
+        targetUrl = UriComponentsBuilder.fromUriString("https://sl-cinema.herokuapp.com/")
                 .queryParam("token", token)
                 .build().toUriString();
 

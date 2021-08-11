@@ -43,7 +43,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         String token = tokenProvider.generateToken((UserDetails) authentication.getPrincipal());
 
-        targetUrl = UriComponentsBuilder.fromUriString(targetUrl)
+        targetUrl = UriComponentsBuilder.fromUriString("http://localhost/")
                 .queryParam("token", token)
                 .build().toUriString();
 

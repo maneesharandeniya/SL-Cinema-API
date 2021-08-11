@@ -5,8 +5,7 @@ spring:
       client:
         registration:
           google:
-            clientId: 922118688631-ikbgloo6rs1amgfsbe8fm6dbojleo7h7.apps.googleusercontent.com
-            clientSecret: kD0X4aQQNokJrUPjmqlq_kxY
+            clientId: 52373081516-moh5l7avmn21k6ck721vhhdbprod5f2e.apps.googleusercontent.com
 
             scope:
               - email

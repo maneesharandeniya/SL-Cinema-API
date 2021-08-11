@@ -21,18 +21,11 @@ import static com.slcinema.security.oauth2.HttpCookieOAuth2AuthorizationRequestR
 
 @Component
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
-
+    @Autowired
     private JwtTokenUtil tokenProvider;
 
-    private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
-
     @Autowired
-    OAuth2AuthenticationSuccessHandler(JwtTokenUtil tokenProvider,
-                                       HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository) {
-        this.tokenProvider = tokenProvider;
-        this.httpCookieOAuth2AuthorizationRequestRepository = httpCookieOAuth2AuthorizationRequestRepository;
-    }
-
+    private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {

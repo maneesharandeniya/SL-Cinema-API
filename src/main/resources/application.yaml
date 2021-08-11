@@ -7,7 +7,7 @@ spring:
           google:
             clientId: 922118688631-ikbgloo6rs1amgfsbe8fm6dbojleo7h7.apps.googleusercontent.com
             clientSecret: kD0X4aQQNokJrUPjmqlq_kxY
-            redirectUri: "https://sl-cinema.herokuapp.com/oauth2/callback/google"
+
             scope:
               - email
               - profile

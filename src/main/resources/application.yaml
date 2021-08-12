@@ -6,7 +6,7 @@ spring:
         registration:
           google:
             clientId: 52373081516-moh5l7avmn21k6ck721vhhdbprod5f2e.apps.googleusercontent.com
-            redirectUri: "com.example.drama_app"
+            redirectUri: "http://localhost"
             scope:
               - email
               - profile

@@ -6,21 +6,21 @@ spring:
         registration:
           google:
             clientId: 52373081516-moh5l7avmn21k6ck721vhhdbprod5f2e.apps.googleusercontent.com
-            redirectUri: "http://localhost"
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
             scope:
               - email
               - profile
           facebook:
             clientId: 239665824674642
             clientSecret: 5188a6598c284307183548f71a7780bc
-            redirectUri: "https://sl-cinema.herokuapp.com/oauth2/callback/facebook" # Note that facebook now mandates the use of https redirect URIs, so make sure your app supports https in production
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}" # Note that facebook now mandates the use of https redirect URIs, so make sure your app supports https in production
             scope:
               - email
               - public_profile
           github:
             clientId: 195a601a48568bda5cf5
             clientSecret: d38213cbb58c31df0f13c06080503e0cd7abea59
-            redirectUri: "https://sl-cinema.herokuapp.com/oauth2/callback/github"
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
             scope:
               - user:email
               - read:user

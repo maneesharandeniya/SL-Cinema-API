@@ -43,7 +43,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         String token = tokenProvider.generateToken((UserDetails) authentication.getPrincipal());
 
-        targetUrl = UriComponentsBuilder.fromUriString("http://localhost/token/")
+        targetUrl = UriComponentsBuilder.fromUriString("myandroidapp://oauth2/redirect")
                 .queryParam("token", token)
                 .build().toUriString();
 

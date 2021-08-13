@@ -7,16 +7,19 @@ import com.slcinema.models.CinemaItem;
 import com.slcinema.models.User;
 import com.slcinema.repo.CinemaItemRepo;
 import com.slcinema.repo.UserRepo;
+import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Service
@@ -30,6 +33,55 @@ public class UserService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JavaMailSender mailSender;
+
+    public void generateOneTimePassword(User user)
+            throws UnsupportedEncodingException, MessagingException {
+        String OTP = RandomString.make(8);
+        String encodedOTP = passwordEncoder.encode(OTP);
+
+        user.setOneTimePassword(encodedOTP);
+        user.setOtpRequestedTime(new Date());
+
+        userRepo.save(user);
+
+        sendOTPEmail(user, OTP);
+    }
+
+    public void sendOTPEmail(User user, String OTP)
+            throws UnsupportedEncodingException, MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom("contact@shopme.com", "Shopme Support");
+        helper.setTo(user.getEmail());
+
+        String subject = "Here's your One Time Password (OTP) - Expire in 5 minutes!";
+
+        String content = "<p>Hello " + user.getUsername() + "</p>"
+                + "<p>For security reason, you're required to use the following "
+                + "One Time Password to login:</p>"
+                + "<p><b>" + OTP + "</b></p>"
+                + "<br>"
+                + "<p>Note: this OTP is set to expire in 5 minutes.</p>";
+
+        helper.setSubject(subject);
+
+        helper.setText(content, true);
+
+        mailSender.send(message);
+    }
+
+    public void clearOTP(User user) {
+        user.setOneTimePassword(null);
+        user.setOtpRequestedTime(null);
+        userRepo.save(user);
+    }
+
+
+
 
     public String addNewUser(User user){
         User newUser = userRepo.findByEmail(user.getEmail());

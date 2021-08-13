@@ -27,11 +27,18 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     public static UserPrincipal create(User user) {
         List<GrantedAuthority> authorities = Collections.
                 singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+        String password;
+
+        if (user.getProvider().equals("local") && user.isOTPRequired()) {
+            password = user.getOneTimePassword();
+        }else {
+            password = user.getPassword();
+        }
 
         return new UserPrincipal(
                 user.getId(),
                 user.getEmail(),
-                user.getPassword(),
+                password,
                 authorities
         );
     }

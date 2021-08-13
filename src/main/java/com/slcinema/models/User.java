@@ -6,9 +6,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Document("User")
 public class User {
+    private static final long OTP_VALID_DURATION = 5 * 60 * 1000;   // 5 minutes
+
     @Id
     private String id;
 
@@ -28,6 +31,43 @@ public class User {
     private ArrayList<String> reviewedList = new ArrayList<>();
 
     private AuthProvider provider;
+
+    private String oneTimePassword;
+
+    private Date otpRequestedTime;
+
+
+    public boolean isOTPRequired() {
+        if (this.getOneTimePassword() == null) {
+            return false;
+        }
+
+        long currentTimeInMillis = System.currentTimeMillis();
+        long otpRequestedTimeInMillis = this.otpRequestedTime.getTime();
+
+        if (otpRequestedTimeInMillis + OTP_VALID_DURATION < currentTimeInMillis) {
+            // OTP expires
+            return false;
+        }
+
+        return true;
+    }
+
+    public String getOneTimePassword() {
+        return oneTimePassword;
+    }
+
+    public void setOneTimePassword(String oneTimePassword) {
+        this.oneTimePassword = oneTimePassword;
+    }
+
+    public Date getOtpRequestedTime() {
+        return otpRequestedTime;
+    }
+
+    public void setOtpRequestedTime(Date otpRequestedTime) {
+        this.otpRequestedTime = otpRequestedTime;
+    }
 
     public AuthProvider getProvider() {
         return provider;

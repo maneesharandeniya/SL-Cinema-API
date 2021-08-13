@@ -60,9 +60,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-				.csrf().disable()
+
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
+				.csrf().disable()
 				.formLogin()
 					.disable()
 				.httpBasic()
@@ -72,6 +73,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers("/admin/**").hasRole("ADMIN")
 					.antMatchers("/admin/editor/**").hasRole("EDITOR")
 					.antMatchers("/user/**").hasRole("USER")
+					.antMatchers("/auth/**", "/oauth2/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.oauth2Login()

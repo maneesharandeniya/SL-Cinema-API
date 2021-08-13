@@ -1,6 +1,5 @@
 package com.slcinema.security;
 
-
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 import com.slcinema.util.CookieUtils;
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;

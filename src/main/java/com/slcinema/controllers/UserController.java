@@ -50,11 +50,11 @@ public class UserController {
     public ModelAndView verifyUser(@RequestParam("code") String code) {
         if (userService.verify(code)) {
             ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("index");
+            modelAndView.setViewName("succesful");
             return modelAndView;
         } else {
             ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("index");
+            modelAndView.setViewName("unsuccesful");
             return modelAndView;
         }
     }

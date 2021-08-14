@@ -15,9 +15,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class JwtAuthenticationController {
@@ -47,6 +52,13 @@ public class JwtAuthenticationController {
         }
         final UserDetails userDetails = customUserDetailsService
                 .loadUserByUsername(authRequest.getUsername());
+
+        //System.out.println(userDetails.isEnabled());
+        if(!userDetails.isEnabled()){
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "Please verify your email");
+        }
+
         final String jwt = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
@@ -58,5 +70,12 @@ public class JwtAuthenticationController {
             return userName;
         }
         return null;
+    }
+
+    @GetMapping("/noauth")
+    public ResponseEntity<?> noAuth() {
+        Map<String, String> body = new HashMap<>();
+        body.put("message", "unauthorized");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(body);
     }
 }

@@ -55,12 +55,18 @@ public class UserService {
 
     public void register(User user, String siteURL)
             throws UnsupportedEncodingException, MessagingException {
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
+
+        User newUser = userRepo.findByEmail(user.getEmail());
+        System.out.println(newUser);
+        if(newUser != null){
+            throw new BadRequestException("Email address already in use.");
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         String randomCode = RandomString.make(64);
         user.setVerificationCode(randomCode);
         user.setEnabled(false);
+        user.setProvider(AuthProvider.local);
 
         userRepo.save(user);
 
@@ -70,14 +76,14 @@ public class UserService {
     private void sendVerificationEmail(User user, String siteURL)
             throws MessagingException, UnsupportedEncodingException {
         String toAddress = user.getEmail();
-        String fromAddress = "Your email address";
-        String senderName = "Your company name";
+        String fromAddress = "randeniyamaneesha13@gmail.com";
+        String senderName = "SL-Cinema";
         String subject = "Please verify your registration";
         String content = "Dear [[name]],<br>"
-                + "Please click the link below to verify your registration:<br>"
+                + "<br>Please click the link below to verify your registration:<br>"
                 + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
                 + "Thank you,<br>"
-                + "Your company name.";
+                + "SL-Cinema Team";
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -87,7 +93,7 @@ public class UserService {
         helper.setSubject(subject);
 
         content = content.replace("[[name]]", user.getUsername());
-        String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode();
+        String verifyURL = siteURL + "/user/verify?code=" + user.getVerificationCode();
 
         content = content.replace("[[URL]]", verifyURL);
 
@@ -106,7 +112,6 @@ public class UserService {
             user.setVerificationCode(null);
             user.setEnabled(true);
             userRepo.save(user);
-
             return true;
         }
     }
@@ -114,7 +119,7 @@ public class UserService {
 
 
 
-        public String rateMovieItem(String id, double rate){
+    public String rateMovieItem(String id, double rate){
         System.out.println("Cinema Item rating service");
 
         Optional<CinemaItem> cinemaItem = cinemaItemRepo.findById(id);

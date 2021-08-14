@@ -28,11 +28,17 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/signup")
-    public String processRegister(User user, HttpServletRequest request)
+    public String processRegister(@Valid @RequestBody User user, HttpServletRequest request)
             throws UnsupportedEncodingException, MessagingException {
         userService.register(user, getSiteURL(request));
-        return "register_success";
+        return "successfully registered";
     }
+     /*
+    @PostMapping(value = "/signup", consumes = {"application/json"})
+    public String userRegistration(@Valid @RequestBody User user){
+        String regConfirm = userService.addNewUser(user);
+        return regConfirm;
+    }*/
 
     private String getSiteURL(HttpServletRequest request) {
         String siteURL = request.getRequestURL().toString();
@@ -40,21 +46,15 @@ public class UserController {
     }
 
     @GetMapping("/verify")
-    public String verifyUser(@Param("code") String code) {
+    public String verifyUser(@RequestParam("code") String code) {
         if (userService.verify(code)) {
+            System.out.println("yes");
             return "verify_success";
         } else {
+            System.out.println("no");
             return "verify_fail";
         }
     }
-    /*
-    @PostMapping(value = "/signup", consumes = {"application/json"})
-    public String userRegistration(@Valid @RequestBody User user){
-        String regConfirm = userService.addNewUser(user);
-        return regConfirm;
-    }*/
-
-
 
     @GetMapping(value = "/cinema/rate")
     public String setRating(@RequestParam("id") String id, @RequestParam("rate")double rate){

@@ -42,6 +42,12 @@ public class CinemaController {
         return cinemaStar;
     }
 
+    @GetMapping("/stars/all")
+    public List<CinemaStar> getStars(){
+        List<CinemaStar> stars = cinemaStarRepo.findAll();
+        return stars;
+    }
+
     @GetMapping("/movies/all")
     public List<CinemaItem> getMovies(){
         List<CinemaItem> movies = cinemaItemRepo.findByCategory("movie");

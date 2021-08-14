@@ -29,6 +29,26 @@ public class User {
 
     private AuthProvider provider;
 
+    private String verificationCode;
+
+    private boolean enabled;
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public AuthProvider getProvider() {
         return provider;
     }

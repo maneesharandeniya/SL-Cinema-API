@@ -8,4 +8,5 @@ import com.slcinema.models.User;
 public interface UserRepo extends MongoRepository<User, String> {
 
     public User findByEmail(String email);
+    public User findByVerificationCode(String verificationCode);
 }

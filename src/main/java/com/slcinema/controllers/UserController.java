@@ -6,9 +6,13 @@ import com.slcinema.models.User;
 import com.slcinema.repo.UserRepo;
 import com.slcinema.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -23,11 +27,34 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @PostMapping("/signup")
+    public String processRegister(User user, HttpServletRequest request)
+            throws UnsupportedEncodingException, MessagingException {
+        userService.register(user, getSiteURL(request));
+        return "register_success";
+    }
+
+    private String getSiteURL(HttpServletRequest request) {
+        String siteURL = request.getRequestURL().toString();
+        return siteURL.replace(request.getServletPath(), "");
+    }
+
+    @GetMapping("/verify")
+    public String verifyUser(@Param("code") String code) {
+        if (userService.verify(code)) {
+            return "verify_success";
+        } else {
+            return "verify_fail";
+        }
+    }
+    /*
     @PostMapping(value = "/signup", consumes = {"application/json"})
     public String userRegistration(@Valid @RequestBody User user){
         String regConfirm = userService.addNewUser(user);
         return regConfirm;
-    }
+    }*/
+
+
 
     @GetMapping(value = "/cinema/rate")
     public String setRating(@RequestParam("id") String id, @RequestParam("rate")double rate){

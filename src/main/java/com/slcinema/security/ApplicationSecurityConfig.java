@@ -69,7 +69,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 				.httpBasic()
 					.disable()
 				.authorizeRequests()
-					.antMatchers("/login","/user/signup","/user/verify","/cinema/**").permitAll()
+					.antMatchers("/login","/user/signup","/user/verify","/resources/**","/cinema/**").permitAll()
 					.antMatchers("/admin/**").hasRole("ADMIN")
 					.antMatchers("/admin/editor/**").hasRole("EDITOR")
 					.antMatchers("/user/**").hasRole("USER")

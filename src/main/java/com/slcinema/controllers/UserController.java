@@ -8,6 +8,7 @@ import com.slcinema.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -46,13 +47,15 @@ public class UserController {
     }
 
     @GetMapping("/verify")
-    public String verifyUser(@RequestParam("code") String code) {
+    public ModelAndView verifyUser(@RequestParam("code") String code) {
         if (userService.verify(code)) {
-            System.out.println("yes");
-            return "verify_success";
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("index");
+            return modelAndView;
         } else {
-            System.out.println("no");
-            return "verify_fail";
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("index");
+            return modelAndView;
         }
     }
 

@@ -53,6 +53,34 @@ public class AdminService {
                 });
             }
         }
+        if(cinemaItem.getProducers() != null) {
+            ArrayList<Role> roles = cinemaItem.getProducers();
+            for(int i=0; i< roles.size(); i++){
+                Optional<CinemaStar> star = cinemaStarRepo.findById(roles.get(i).getStarID());
+                if(star == null){
+                    throw new ResponseStatusException(
+                            HttpStatus.NOT_FOUND, "Producer Not Found");
+                }
+                int finalI = i;
+                star.ifPresent(s -> {
+                    roles.get(finalI).setImageUrl(s.getImageUrls().get(0));
+                });
+            }
+        }
+        if(cinemaItem.getDirectors() != null) {
+            ArrayList<Role> roles = cinemaItem.getDirectors();
+            for(int i=0; i< roles.size(); i++){
+                Optional<CinemaStar> star = cinemaStarRepo.findById(roles.get(i).getStarID());
+                if(star == null){
+                    throw new ResponseStatusException(
+                            HttpStatus.NOT_FOUND, "Director Not Found");
+                }
+                int finalI = i;
+                star.ifPresent(s -> {
+                    roles.get(finalI).setImageUrl(s.getImageUrls().get(0));
+                });
+            }
+        }
 
         if(adminName == null){
             throw new ResponseStatusException(

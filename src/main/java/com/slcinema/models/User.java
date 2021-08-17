@@ -33,6 +33,7 @@ public class User {
 
     private boolean enabled;
 
+
     public String getVerificationCode() {
         return verificationCode;
     }

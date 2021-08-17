@@ -148,7 +148,7 @@ public class UserService {
             if(ratedList.contains(item.getId())){
                 ratedList.remove(item.getId());
                 double curRate = item.getRatings()*item.getRatedCount();
-                double prevRate = rateMap.get(user.getUsername());
+                double prevRate = rateMap.get(user.getId());
                 double newRate =  (curRate+rate-prevRate)/item.getRatedCount();
                 item.setRatings(newRate);
             }else{
@@ -160,7 +160,7 @@ public class UserService {
             ratedList.add(item.getId());
             user.setRatedList(ratedList);
 
-            rateMap.put(user.getEmail(), rate);
+            rateMap.put(user.getId(), rate);
             item.setRateMap(rateMap);
 
             cinemaItemRepo.save(item);

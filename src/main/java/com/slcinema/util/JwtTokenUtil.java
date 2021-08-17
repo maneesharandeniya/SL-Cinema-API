@@ -1,9 +1,12 @@
 package com.slcinema.util;
 
+import com.slcinema.models.User;
 import com.slcinema.models.UserPrincipal;
+import com.slcinema.repo.UserRepo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +19,9 @@ import java.util.function.Function;
 public class JwtTokenUtil {
 	
 	private static String SECRET_KEY = "@asdf.123.asdf@";
+
+	@Autowired
+	private UserRepo userRepo;
 
 	public static final long JWT_TOKEN_VALIDITY = 1 * 60 * 60 * 60;
 
@@ -44,8 +50,12 @@ public class JwtTokenUtil {
 	
 	public String generateToken(UserDetails userDetails) {
 		Map<String, Object> claims = new HashMap<>();
-		claims.put("role",userDetails.getAuthorities());
+		claims.put("role",userDetails.getAuthorities().toArray()[0]);
 		claims.put("enable",userDetails.isEnabled());
+		User user = userRepo.findByEmail(userDetails.getUsername());
+		if(user != null) {
+			claims.put("userID", user.getId());
+		}
 		return createToken(claims, userDetails.getUsername());
 	}
 	

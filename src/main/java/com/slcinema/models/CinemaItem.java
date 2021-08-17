@@ -45,13 +45,13 @@ public class CinemaItem {
     @NotBlank(message = "genre cannot be Blank")
     private ArrayList<String> genres;
 
-    private HashMap<String,String> reviews;
+    private HashMap<String,ReviewResponse> reviews;
     private HashMap<String, Double> rateMap;
     private double ratings;
     private int ratedCount;
     private String youtubeURL;
 
-    public CinemaItem(String id, String category, String title, ArrayList<String> imageUrls, String description, ArrayList<Role> cast, ArrayList<Role> directors, ArrayList<Role> producers, ArrayList<String> genres, HashMap<String, String> reviews, HashMap<String, Double> rateMap, double ratings, int ratedCount, String youtubeURL) {
+    public CinemaItem(String id, String category, String title, ArrayList<String> imageUrls, String description, ArrayList<Role> cast, ArrayList<Role> directors, ArrayList<Role> producers, ArrayList<String> genres, HashMap<String, ReviewResponse> reviews, HashMap<String, Double> rateMap, double ratings, int ratedCount, String youtubeURL) {
         this.id = id;
         this.category = category;
         this.title = title;
@@ -140,11 +140,11 @@ public class CinemaItem {
         this.genres = genres;
     }
 
-    public HashMap<String, String> getReviews() {
+    public HashMap<String, ReviewResponse> getReviews() {
         return reviews;
     }
 
-    public void setReviews(HashMap<String, String> reviews) {
+    public void setReviews(HashMap<String, ReviewResponse> reviews) {
         this.reviews = reviews;
     }
 

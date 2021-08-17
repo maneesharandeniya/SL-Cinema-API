@@ -4,6 +4,7 @@ import com.slcinema.controllers.JwtAuthenticationController;
 import com.slcinema.exception.BadRequestException;
 import com.slcinema.models.AuthProvider;
 import com.slcinema.models.CinemaItem;
+import com.slcinema.models.ReviewResponse;
 import com.slcinema.models.User;
 import com.slcinema.repo.CinemaItemRepo;
 import com.slcinema.repo.UserRepo;
@@ -19,6 +20,9 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -227,8 +231,6 @@ public class UserService {
     }
 
     public String reviewMovieItem(String id, String review) {
-        System.out.println("Review Cinema Item service");
-
         Optional<CinemaItem> cinemaItem = cinemaItemRepo.findById(id);
         String username = JwtAuthenticationController.getUserFromSession();
 
@@ -244,6 +246,7 @@ public class UserService {
         cinemaItem.ifPresent(item -> {
             User user = userRepo.findByEmail(username);
             ArrayList<String> reviewedItems = user.getReviewedList();
+
             if(reviewedItems == null){
                 reviewedItems = new ArrayList<String>();
             }
@@ -253,13 +256,26 @@ public class UserService {
             reviewedItems.add(item.getId());
             user.setReviewedList(reviewedItems);
 
-            HashMap<String,String> reviews = item.getReviews();
-            if(reviews == null){
-                reviews = new HashMap<String,String>();
-            }
-            reviews.put(user.getUsername(),review);
-            item.setReviews(reviews);
+            HashMap<String,ReviewResponse> reviews = item.getReviews();
 
+            if(reviews == null){
+                reviews = new HashMap<String,ReviewResponse>();
+            }
+            if(reviews.get(user.getId()) != null){
+                reviews.get(user.getId()).setName(user.getUsername());
+                reviews.get(user.getId()).setReview(review);
+                reviews.get(user.getId()).setDate(LocalDate.now());
+                reviews.get(user.getId()).setTime(LocalTime.now());
+            }else {
+                ReviewResponse reviewResponse = new ReviewResponse();
+                reviewResponse.setName(user.getUsername());
+                reviewResponse.setReview(review);
+                reviewResponse.setDate(LocalDate.now());
+                reviewResponse.setTime(LocalTime.now());
+
+                reviews.put(user.getId(),reviewResponse);
+                item.setReviews(reviews);
+            }
             cinemaItemRepo.save(item);
             userRepo.save(user);
         });

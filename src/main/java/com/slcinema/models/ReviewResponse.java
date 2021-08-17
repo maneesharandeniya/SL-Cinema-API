@@ -1,12 +1,16 @@
 package com.slcinema.models;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 public class ReviewResponse {
 
     private String name;
     private String review;
-    private Date date;
+    private LocalDate date;
+    private LocalTime time;
 
     public String getName() {
         return name;
@@ -24,11 +28,19 @@ public class ReviewResponse {
         this.review = review;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 }

@@ -120,12 +120,11 @@ public class UserService {
 
 
     public String rateMovieItem(String id, double rate){
-        System.out.println("Cinema Item rating service");
-
         Optional<CinemaItem> cinemaItem = cinemaItemRepo.findById(id);
-        String username = JwtAuthenticationController.getUserFromSession();
-        System.out.println(username);
-        if(username == null){
+        String userEmail = JwtAuthenticationController.getUserFromSession();
+        System.out.println(userEmail);
+
+        if(userEmail == null){
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "User Not Found");
         }
@@ -135,7 +134,7 @@ public class UserService {
         }
 
         cinemaItem.ifPresent(item -> {
-            User user = userRepo.findByEmail(username);
+            User user = userRepo.findByEmail(userEmail);
             ArrayList<String> ratedList = user.getRatedList();
 
             HashMap<String,Double> rateMap = item.getRateMap();
@@ -161,7 +160,7 @@ public class UserService {
             ratedList.add(item.getId());
             user.setRatedList(ratedList);
 
-            rateMap.put(user.getUsername(), rate);
+            rateMap.put(user.getEmail(), rate);
             item.setRateMap(rateMap);
 
             cinemaItemRepo.save(item);

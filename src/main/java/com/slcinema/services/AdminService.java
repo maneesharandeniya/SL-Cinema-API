@@ -95,16 +95,20 @@ public class AdminService {
 
     public String editItem(CinemaItem cinemaItem){
         String adminName = JwtAuthenticationController.getUserFromSession();
-        Optional<CinemaItem> item = cinemaItemRepo.findById(cinemaItem.getTitle());
+        CinemaItem item = cinemaItemRepo.findByTitle(cinemaItem.getTitle());
 
         if(adminName == null){
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Admin User Not Found");
         }
-        if(!item.isPresent()){
+        if(item == null){
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Cinema Item Not Found");
         }
+        cinemaItem.setRatings(item.getRatings());
+        cinemaItem.setRateMap(item.getRateMap());
+        cinemaItem.setRatedCount(item.getRatedCount());
+        cinemaItem.setReviews(item.getReviews());
         cinemaItemRepo.save(cinemaItem);
         return "Successfully edited item";
     }

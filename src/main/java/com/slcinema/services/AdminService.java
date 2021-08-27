@@ -95,7 +95,7 @@ public class AdminService {
 
     public String editItem(CinemaItem cinemaItem){
         String adminName = JwtAuthenticationController.getUserFromSession();
-        CinemaItem item = cinemaItemRepo.findByTitle(cinemaItem.getTitle());
+        Optional<CinemaItem> item = cinemaItemRepo.findById(cinemaItem.getId());
 
         if(adminName == null){
             throw new ResponseStatusException(
@@ -105,11 +105,17 @@ public class AdminService {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Cinema Item Not Found");
         }
-        cinemaItem.setRatings(item.getRatings());
-        cinemaItem.setRateMap(item.getRateMap());
-        cinemaItem.setRatedCount(item.getRatedCount());
-        cinemaItem.setReviews(item.getReviews());
-        cinemaItemRepo.save(cinemaItem);
+         item.ifPresent(i-> {
+            cinemaItem.setRatings(i.getRatings());
+            if(i.getRateMap() != null){
+                cinemaItem.setRateMap(i.getRateMap());
+            }
+            cinemaItem.setRatedCount(i.getRatedCount());
+            if(i.getReviews() != null){
+                cinemaItem.setReviews(i.getReviews());
+            }
+            cinemaItemRepo.save(cinemaItem);
+        });
         return "Successfully edited item";
     }
 

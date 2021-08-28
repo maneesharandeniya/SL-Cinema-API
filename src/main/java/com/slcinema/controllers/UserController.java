@@ -83,4 +83,10 @@ public class UserController {
         return  reviewConfirm;
     }
 
+    @DeleteMapping(value = "/cinema/review/delete/{id}")
+    public String deleteReview(@PathVariable("id") String id){
+        String reviewDelete = userService.reviewDelete(id);
+        return  reviewDelete;
+    }
+
 }

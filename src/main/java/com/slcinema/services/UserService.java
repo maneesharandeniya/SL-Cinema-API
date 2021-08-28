@@ -281,4 +281,38 @@ public class UserService {
         });
         return "successfully added review";
     }
+
+    public String reviewDelete(String id) {
+        Optional<CinemaItem> cinemaItem = cinemaItemRepo.findById(id);
+        String username = JwtAuthenticationController.getUserFromSession();
+
+        if(username == null){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "User Not Found");
+        }
+        if(!cinemaItem.isPresent()){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Cinema Item Not Found");
+        }
+
+        cinemaItem.ifPresent(item -> {
+            User user = userRepo.findByEmail(username);
+            ArrayList<String> userReviewedItems = user.getReviewedList();
+            HashMap<String, ReviewResponse> reviewedList = item.getReviews();
+
+            if(reviewedList != null){
+                reviewedList.remove(user.getId());
+            }
+            if(userReviewedItems != null){
+                userReviewedItems.remove(item.getId());
+            }
+            item.setReviews(reviewedList);
+            user.setReviewedList(userReviewedItems);
+
+            cinemaItemRepo.save(item);
+            userRepo.save(user);
+        });
+
+        return "review successfully deleted";
+    }
 }

@@ -99,11 +99,11 @@ public class AdminService {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Admin User Not Found");
         }
-        if(!item.isPresent()){
+        if(item == null){
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Cinema Item Not Found");
         }
-        item.ifPresent(i-> {
+         item.ifPresent(i-> {
             cinemaItem.setRatings(i.getRatings());
             if(i.getRateMap() != null){
                 cinemaItem.setRateMap(i.getRateMap());

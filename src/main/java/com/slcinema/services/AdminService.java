@@ -37,8 +37,6 @@ public class AdminService {
         String adminName = JwtAuthenticationController.getUserFromSession();
         CinemaItem item = cinemaItemRepo.findByTitle(cinemaItem.getTitle());
 
-        //TODO
-        // get starID from cinema item and then set role imageUrl
         if(cinemaItem.getCast() != null) {
             ArrayList<Role> roles = cinemaItem.getCast();
             for(int i=0; i< roles.size(); i++){
@@ -101,7 +99,7 @@ public class AdminService {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Admin User Not Found");
         }
-        if(item == null){
+        if(item.isPresent()){
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Cinema Item Not Found");
         }
